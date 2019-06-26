@@ -1,0 +1,24 @@
+{
+  "name": "loaf-coach",
+  "version": "1.0.0",
+  "description": "React-Node food sharing app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albaferrari/loaf-coach.git"
+  },
+  "author": "Alba Ferrari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/albaferrari/loaf-coach/issues"
+  },
+  "homepage": "https://github.com/albaferrari/loaf-coach#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1"
+  }
+}

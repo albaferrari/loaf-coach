@@ -1,0 +1,12 @@
+.Map {
+    float: right;
+}
+
+.mapboxgl-ctrl-geocoder{
+    border-radius: 100px !important;
+    background-color: #f6dfaf !important;
+}
+
+.mapboxgl-ctrl-geocoder--button {
+    background-color: transparent !important;
+}
