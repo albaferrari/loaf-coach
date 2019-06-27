@@ -6,9 +6,14 @@ import { Route, Switch } from "react-router-dom";
 
 import About from "./components/About";
 import Something from "./components/Something";
+import Register from "./components/register/Register";
 
 class App extends Component {
-  state = {  }
+
+  addUser = formState => {
+    this.setState({users: [...this.formState.users, formState]});
+  };
+
   render() { 
     return (
       <div className="App">
@@ -17,6 +22,7 @@ class App extends Component {
           <Route exact path="/" component={Map} />
           <Route path="/about" component={About} />
           <Route path="/something" component={Something} />
+          <Route path="/register" component={Register} />
         </Switch>
     </div>
     );
