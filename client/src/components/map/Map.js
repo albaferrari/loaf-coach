@@ -6,12 +6,14 @@ import Geocoder from "react-map-gl-geocoder";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
+import "../map/map.css";
+
 class Map extends Component {
   state = {
     viewport: {
       latitude: 52.3745403,
       longitude: 4.8979755,
-      width: "75vw",
+      width: "100vw",
       height: "100vh",
       zoom: 13
     },
@@ -54,7 +56,7 @@ class Map extends Component {
     const { viewport, searchResultLayer } = this.state;
 
     return (
-      <div>
+      <div className="Map">
         <ReactMapGL
           ref={this.mapRef}
           {...viewport}

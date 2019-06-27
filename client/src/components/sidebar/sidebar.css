@@ -1,0 +1,31 @@
+.Sidebar {
+    background-color:#5bae8b;
+    height: 100vh;
+    width: 25vw;
+}
+
+.sidebar-content {
+    height: 100vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 70%;
+}
+
+.saveTheFood {
+    text-align: center;
+    color: #fab700;
+    margin-top: 4vh;
+}
+
+.infoText {
+    margin-top: 5vh;
+    color: #f6dfaf;
+    width: 80%;
+    text-align: center;
+}
