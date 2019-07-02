@@ -2,6 +2,7 @@
     background-color:#5bae8b;
     height: 100vh;
     width: 25vw;
+    z-index: 1;
 }
 
 .sidebar-content {

@@ -1,47 +1,73 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const cookieParser = require("cookie-parser")
 const morgan = require("morgan");
-const flash = require("express-flash");
 
-const cors = require("cors");
-/* const {check} = require("express-validator/check"); */
-
-require("dotenv").config();
 const { connector } = require("./database/config/dbConfig");
 const port = process.env.PORT || 5000;
 
-const registerController =  require ("./controllers/registerController");
+const registerController = require("./controllers/registerController");
+const loginController = require("./controllers/loginController");
+/* const markersController = require ("./controllers/markersController"); */
+
+const User = require("./database/models/User");
+
 
 app.use(express.json());
-app.use(cors())
-
-app.set("view engine", "ejs");
-
 app.use(morgan("dev"));
-app.use(flash());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser())
 app.use(
   session({
-    name: process.env.SESSION_COOKIE,
-    secret: process.env.SESSION_SECRET,
+    name: "wowoCookie",
+    secret: "wowoSecret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 
+/* Custom Middleware */
+function checkCookies(req, res) {
+  if (!req.cookies.wowoCookie) {
+    res.send(false);
+  } else {
+    res.send(true);
+  }
+}
 
-app.get("/", (req, res) => {
-  res.send({ express: "Hello from your serverrrrrr" });
+app.get("/home", (req, res) => {
+  User.findAll()
+    .then(userArray => {
+      let address = userArray.map(user => {
+        return {
+          location: user.dataValues.location
+
+        }
+      })
+      res.send(address)
+    }).catch(error => {
+      console.error(`Cannot find user to get marker: ${error.stack}`);
+    });
+}
+)
+
+
+/* app.post("/", markersController.getMarker); */
+app.post("/register", registerController.postUserRegistration);
+app.get("/register", (req, res) => {
+  checkCookies(req, res)
 });
 
-app.get("/something", registerController.test);
+app.post("/login", loginController.postUserLogin);
+app.get("/login", (req, res) => {
+  checkCookies(req, res)
+});
 
-app.post("/register", registerController.postUserRegistration);
-
+app.get("/profile", (req, res) => {
+  checkCookies(req, res)
+});
 
 connector
   .sync()

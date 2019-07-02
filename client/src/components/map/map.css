@@ -1,7 +1,6 @@
 .Map {
     float: right;
     position: fixed;
-    z-index: -1;
 }
 
 .mapboxgl-ctrl-geocoder{
@@ -14,4 +13,10 @@
 
 .mapboxgl-ctrl-geocoder--button {
     background-color: transparent !important;
+}
+
+.marker-btn {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import DeckGL, { GeoJsonLayer } from "deck.gl";
+import axios from "axios";
 import Geocoder from "react-map-gl-geocoder";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -17,10 +18,34 @@ class Map extends Component {
       height: "100vh",
       zoom: 13
     },
-    searchResultLayer: null
+    searchResultLayer: null,
+    lat: null,
+    lng: null
   };
 
   mapRef = React.createRef();
+
+  componentDidMount(){
+    axios
+      .get("/home")
+      .then(address => {
+        let addressArray = address.data
+
+        addressArray.forEach(address => {
+          /* console.log(address.location) */
+          axios
+          .get(`https://api.tiles.mapbox.com/geocoding/v5/mapbox.places/${address.location}.json?&access_token=pk.eyJ1IjoiYWxiYWZlcnJhcmkiLCJhIjoiY2p4Yms3dzJ3MDN5dTNwcDkxdmxnbjVkNyJ9._65MsNa773gvPiLm26vtxw`)
+          .then(results =>
+            console.log(results))
+          .catch(error => console.error(`Something went wrong when getting coordinates from addess ${error.stack}`))
+        })
+      })
+      .catch(error =>
+        console.error(
+          `Something went wrong when getting ADDRESS data from server:${error.stack}`
+        )
+      );
+  }
 
   handleViewportChange = viewport => {
     this.setState({
@@ -38,7 +63,7 @@ class Map extends Component {
   };
 
   handleOnResult = event => {
-    console.log(event.result);
+    /* console.log(event.result); */
     this.setState({
       searchResultLayer: new GeoJsonLayer({
         id: "search-result",
@@ -57,6 +82,7 @@ class Map extends Component {
 
     return (
       <div className="Map">
+        <div></div>
         <ReactMapGL
           ref={this.mapRef}
           {...viewport}
@@ -65,7 +91,7 @@ class Map extends Component {
           mapStyle="mapbox://styles/albaferrari/cjxblw98b1bwg1cn0a09b34p3"
         >
 
-            <Geocoder
+          <Geocoder
             mapRef={this.mapRef}
             onResult={this.handleOnResult}
             onViewportChange={this.handleGeocoderViewportChange}
@@ -73,6 +99,13 @@ class Map extends Component {
             position="top-right"
           />
           <DeckGL {...viewport} layers={[searchResultLayer]} />
+
+          {/* <Marker
+            latitude = {this.state.lat}
+            longitude = {this.state.lng}
+            >
+              <button class="marker-btn"></button>
+            </Marker> */}
 
         </ReactMapGL>
       </div>

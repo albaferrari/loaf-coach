@@ -5,14 +5,12 @@ import Sidebar from "./components/sidebar/Sidebar";
 import { Route, Switch } from "react-router-dom";
 
 import About from "./components/About";
-import Something from "./components/Something";
 import Register from "./components/register/Register";
+import Login from "./components/login/Login";
+import Profile from "./components/profile/Profile";
+
 
 class App extends Component {
-
-  addUser = formState => {
-    this.setState({users: [...this.formState.users, formState]});
-  };
 
   render() { 
     return (
@@ -21,8 +19,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Map} />
           <Route path="/about" component={About} />
-          <Route path="/something" component={Something} />
           <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/profile" component={Profile} />
         </Switch>
     </div>
     );

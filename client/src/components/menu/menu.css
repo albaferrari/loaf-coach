@@ -1,16 +1,18 @@
 .menu-container {
-    display: none;
     position: fixed;
     top: 0;
     width: 25vw;
     height: 100vh;
-    z-index: 1;
     background: rgba(91, 174, 139, 0.90);
+    transform: translateX(-25vw);
+    transition: transform 250ms ease-in-out;
   }
   
   .menu-container.opened {
     display: flex;
     flex-direction: column;
+    transform: translateX(0vw);
+    transition: transform 500ms ease-in-out;
   }
 
   .menu-link {
