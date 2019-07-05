@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 const session = require("express-session");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
 const { connector } = require("./database/config/dbConfig");
@@ -11,9 +11,12 @@ const port = process.env.PORT || 5000;
 
 const registerController = require("./controllers/registerController");
 const loginController = require("./controllers/loginController");
-/* const markersController = require ("./controllers/markersController"); */
+const groceriesController = require("./controllers/groceriesController");
 
 const User = require("./database/models/User");
+
+/* const cors = require('cors') */
+
 
 
 app.use(express.json());
@@ -27,6 +30,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+/* app.use(cors()) */
+
 
 /* Custom Middleware */
 function checkCookies(req, res) {
@@ -40,13 +45,18 @@ function checkCookies(req, res) {
 app.get("/home", (req, res) => {
   User.findAll()
     .then(userArray => {
-      let address = userArray.map(user => {
-        return {
-          location: user.dataValues.location
-
-        }
+     let locationMap = userArray.map(user => {
+         return user.dataValues.location
+/*          res.send(user.dataValues.location)
+ */ /*        return {
+          latitude: JSON.parse(user.dataValues.location)[0],
+          longitude: JSON.parse(user.dataValues.location)[1]
+        } */
       })
-      res.send(address)
+
+      /* console.log(Object.assign({},locationMap)) */
+      res.send(Object.assign({},locationMap))
+
     }).catch(error => {
       console.error(`Cannot find user to get marker: ${error.stack}`);
     });
@@ -68,6 +78,7 @@ app.get("/login", (req, res) => {
 app.get("/profile", (req, res) => {
   checkCookies(req, res)
 });
+app.post("/profile", groceriesController.groceries);
 
 connector
   .sync()

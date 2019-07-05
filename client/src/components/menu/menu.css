@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Sniglet&display=swap');
+
 .menu-container {
     position: fixed;
     top: 0;
-    width: 25vw;
+    width: 50vw;
     height: 100vh;
     background: rgba(91, 174, 139, 0.90);
-    transform: translateX(-25vw);
+    transform: translateX(-50vw);
     transition: transform 250ms ease-in-out;
   }
   
@@ -15,29 +17,36 @@
     transition: transform 500ms ease-in-out;
   }
 
+  .links-container {
+    margin-top: 50px;
+  }
+
   .menu-link {
-    text-align: center;
-    margin: 20px 0 0 10px;
+    margin: 30px 0 0 30px;
     display: block;
-    font-size: 18px;
+    font-size: 20px;
     text-decoration: none;
     color: #f6dfaf;
+    font-family: 'Sniglet', cursive;
     cursor: pointer;
     transition: all 0.5s;
   }
   .menu-link:hover{
     color: #b95e42;
-    transform: scale(1.1);
+    transform: scale(0.9);
   }
   .burger {
     position: fixed;
-    margin: 10px 0 0 10px;
+    margin: 12px 0 0 10px;
     width: 30px;
     height: 30px;
     z-index: 2;
     display: block;
     cursor: pointer;
     outline: inherit;
+    padding: 3px;
+    background-color: #b95e42;
+    border-radius: 5px;
   }
   .lines {
     position: absolute;
@@ -62,4 +71,16 @@
   }
   .burger.is-active .line:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (min-width: 600px) {
+    .menu-container {
+      width: 25vw;
+    }
+
+    .burger {
+      padding: 0;
+      background-color: transparent;
+      border-radius: 0;
+    }
   }

@@ -1,13 +1,17 @@
 .Map {
     float: right;
+    position: absolute;
+}
+
+.MapForMobile {
     position: fixed;
 }
 
 .mapboxgl-ctrl-geocoder{
     border-radius: 100px !important;
     background-color: #f6dfaf !important;
+    width: 60vw !important; 
     position: fixed;
-    top: 0;
     right: 0;
 }
 
@@ -16,7 +20,15 @@
 }
 
 .marker-btn {
-    width: 10px;
-    height: 10px;
-    background-color: blue;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: solid #a252cd;
+    background-color: #c28dde;
+}
+
+@media (min-width: 600px) {
+    .Map{
+        visibility: visible;
+    }
 }

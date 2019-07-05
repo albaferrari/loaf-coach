@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import Menu from "../menu/Menu";
+import "../register/register.css"
+/* import {Redirect} from "react-router-dom"; */
 
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newUser : {
+            newUser: {
                 name: "",
                 email: "",
                 password: "",
@@ -52,16 +54,16 @@ class Register extends Component {
     }
 
     render() {
-            return (
-            <div>
-                <div>
-                    <h1>Register</h1>
-                </div>
+        return (
+            <div >
+                <Menu />
+
+                <div className="Register-main">
                     <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <label>Name:</label>
-                            <br />
+                        <h1 className="register-title">Register</h1>
+                        <div className="field">
                             <input
+                                placeholder="Username"
                                 type="text"
                                 name="name"
                                 value={this.state.name}
@@ -69,10 +71,9 @@ class Register extends Component {
                                 required
                             />
                         </div>
-                        <div>
-                            <label>Email:</label>
-                            <br />
+                        <div className="field">
                             <input
+                                placeholder="Email"
                                 type="email"
                                 name="email"
                                 value={this.state.email}
@@ -80,10 +81,9 @@ class Register extends Component {
                                 required
                             />
                         </div>
-                        <div>
-                            <label>Password:</label>
-                            <br />
+                        <div className="field">
                             <input
+                                placeholder="Password"
                                 type="password"
                                 name="password"
                                 value={this.state.password}
@@ -91,10 +91,9 @@ class Register extends Component {
                                 required
                             />
                         </div>
-                        <div>
-                            <label>Location:</label>
-                            <br />
+                        <div className="field">
                             <input
+                                placeholder="Address (ex. Damrak 28 Amsterdam)"
                                 type="text"
                                 name="location"
                                 value={this.state.location}
@@ -102,10 +101,9 @@ class Register extends Component {
                                 required
                             />
                         </div>
-                        <div>
-                            <label>Phone:</label>
-                            <br />
+                        <div className="field">
                             <input
+                                placeholder="Phone"
                                 type="text"
                                 name="phone"
                                 value={this.state.phone}
@@ -114,10 +112,11 @@ class Register extends Component {
                             />
                         </div>
                         <br />
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit" className="submit-button" />
                     </form>
                 </div>
-                )
+            </div>
+        )
     }
 };
 

@@ -10,6 +10,8 @@ import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "../map/map.css";
 
 class Map extends Component {
+  _isMounted = false;
+
   state = {
     viewport: {
       latitude: 52.3745403,
@@ -19,32 +21,47 @@ class Map extends Component {
       zoom: 13
     },
     searchResultLayer: null,
-    lat: null,
-    lng: null
+    lat: 0,
+    lng: 0,
+    test:[]
   };
 
   mapRef = React.createRef();
 
-  componentDidMount(){
+  componentDidMount() {
+    this._isMounted = true;
     axios
       .get("/home")
-      .then(address => {
-        let addressArray = address.data
+      .then(dataFromServer => {
+        if(this._isMounted){
+          console.log("COMPONENT MOUNTED!!!!!!")
 
-        addressArray.forEach(address => {
-          /* console.log(address.location) */
-          axios
-          .get(`https://api.tiles.mapbox.com/geocoding/v5/mapbox.places/${address.location}.json?&access_token=pk.eyJ1IjoiYWxiYWZlcnJhcmkiLCJhIjoiY2p4Yms3dzJ3MDN5dTNwcDkxdmxnbjVkNyJ9._65MsNa773gvPiLm26vtxw`)
-          .then(results =>
-            console.log(results))
-          .catch(error => console.error(`Something went wrong when getting coordinates from addess ${error.stack}`))
-        })
+          let coordinates = dataFromServer.data
+          let coordsContainer = []
+          for(const key in coordinates) {
+            console.log("Longitude: ", JSON.parse(coordinates[key])[0], "Latitude: ", JSON.parse(coordinates[key])[1])
+            let coords = {
+              lat:JSON.parse(coordinates[key])[1],
+              lng:JSON.parse(coordinates[key])[0]}
+            coordsContainer.push(coords)
+          }
+          console.log("Container", coordsContainer[0])
+          this.setState({
+            test:coordsContainer
+          })
+        }
       })
       .catch(error =>
         console.error(
           `Something went wrong when getting ADDRESS data from server:${error.stack}`
         )
       );
+        
+  }
+
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleViewportChange = viewport => {
@@ -80,9 +97,20 @@ class Map extends Component {
   render() {
     const { viewport, searchResultLayer } = this.state;
 
+    let x = this.state.test.map((y, index) => {
+      return <Marker
+      key={index}
+          latitude={y.lat}
+          longitude={y.lng}
+          offsetLeft={-20}
+          offsetTop={-10}>
+          <div className="marker-btn"></div>
+          <button></button>
+      </Marker>
+    })
+
     return (
       <div className="Map">
-        <div></div>
         <ReactMapGL
           ref={this.mapRef}
           {...viewport}
@@ -101,12 +129,14 @@ class Map extends Component {
           <DeckGL {...viewport} layers={[searchResultLayer]} />
 
           {/* <Marker
-            latitude = {this.state.lat}
-            longitude = {this.state.lng}
-            >
-              <button class="marker-btn"></button>
-            </Marker> */}
-
+          latitude={this.state.lat}
+          longitude={this.state.lng}
+          offsetLeft={-20}
+          offsetTop={-10}>
+          <div className="marker-btn"></div>
+        </Marker> */}
+        {x}
+        
         </ReactMapGL>
       </div>
     );

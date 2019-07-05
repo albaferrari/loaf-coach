@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Sniglet&display=swap');
+
 .Sidebar {
     background-color:#5bae8b;
     height: 100vh;
-    width: 25vw;
+    width: 100vw;
     z-index: 1;
 }
 
 .sidebar-content {
     height: 100vh;
-    width: 25vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +17,7 @@
 }
 
 .logo {
-    width: 70%;
+    width: 60%;
 }
 
 .saveTheFood {
@@ -25,8 +27,35 @@
 }
 
 .infoText {
-    margin-top: 5vh;
+    margin-top: 3vh;
     color: #f6dfaf;
     width: 80%;
     text-align: center;
+}
+
+.goToMenuLink {
+    display: block;
+    margin-top: 30px;;
+    padding: 10px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #b95e42;
+    font-family: 'Sniglet', cursive;
+    font-size: 30px;
+    font-weight: bolder;
+    background-color: #fab700;
+}
+
+@media (min-width: 600px) {
+    .Sidebar{
+        width: 25vw;
+    }
+
+    .sidebar-content {
+        width: 25vw;
+    }
+
+    .logo {
+        width: 70%;
+    }
 }

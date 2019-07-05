@@ -1,0 +1,17 @@
+.Map{
+    display: block;
+    z-index: 1;
+}
+
+.Sidebar {
+    display: block;
+    z-index: 2;
+    position: fixed;
+}
+
+.Menu {
+    display: block;
+    z-index: 99;
+    position: fixed;
+}
+

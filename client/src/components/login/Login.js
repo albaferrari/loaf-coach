@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+
+import Menu from "../menu/Menu";
+/* import "../register/register.css"; */
 
 class Login extends Component {
     constructor(props) {
@@ -43,38 +46,39 @@ class Login extends Component {
     }
 
     render() {
-        if(this.state.redirect) return <Redirect to="/profile" />
+        if (this.state.redirect) return <Redirect to="/profile" />
         else return (
-        <div>
             <div>
-                <h1>Login</h1>
-            </div>
-                <form onSubmit={this.handleSubmit}>
+                <Menu />
+                <div className="Register-main">
                     <div>
-                        <label>Name:</label>
-                        <br />
-                        <input
-                            type="text"
-                            name="name"
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                            required
-                        />
                     </div>
-                    <div>
-                        <label>Password:</label>
+                    <form onSubmit={this.handleSubmit}>
+                        <h1 className="register-title">Login</h1>
+                        <div className="field">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Username"
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="field">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
                         <br />
-                        <input
-                            type="password"
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            required
-                        />
-                    </div>
-                    <br />
-                    <input type="submit" value="Submit" />
-                </form>
+                        <input type="submit" value="Submit" className="submit-button" />
+                    </form>
+                </div>
             </div>
         )
     }

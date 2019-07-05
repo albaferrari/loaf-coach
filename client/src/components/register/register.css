@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Sniglet&display=swap');
+
+body {
+    background-color: #5bae8b;
+}
+
+.Register-main {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../public/images/logo-right-bottom.png");
+    background-size: 50vw;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.register-title {
+    font-family: 'Sniglet', cursive;
+    font-size: 40px;
+    color: #fab700;
+    margin-bottom: 30px;
+}
+
+form {
+    align-self: flex-start;
+    margin-left: 10vw;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 30px 0px rgba(46,87,66,0.3);
+    background-color: #5bae8b;
+}
+
+.field {
+    margin: 10px 0 10px 0;
+}
+
+.field input {
+    width: 300px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #f6dfaf;
+    border: solid 3px #b95e42;
+    font-size: 13px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.logo-right-bottom {
+    display: block;
+    width: 50vw;
+    z-index: -1;
+    position: relative;
+}
+
+.submit-button {
+    width: 100px;
+    background-color: #fab700;
+    font-size: 20px;
+    padding: 5px 0 5px 0;
+    border-radius: 40px;
+    color: #b95e42;
+    border: none;
+    font-weight: bold;
+}
