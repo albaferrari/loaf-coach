@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Menu from "../menu/Menu";
 import "../register/register.css"
-/* import {Redirect} from "react-router-dom"; */
 
 class Register extends Component {
     constructor(props) {

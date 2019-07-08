@@ -13,13 +13,15 @@ class Profile extends Component {
         super(props);
         this.state = {
             loggedIn: null,
-            name: null
+            name: "",
+            pointsCount: 0
         };
     }
 
     handleChange = e => {
-        this.setState({name: e.target.value});
-      }
+        this.setState({ name: e.target.value });
+    }
+
 
     handleSubmit = e => {
         e.preventDefault();
@@ -36,7 +38,6 @@ class Profile extends Component {
                     name: resultsFromServer.data.name,
                     points: resultsFromServer.data.points,
                 });
-                console.log(resultsFromServer);
             })
             .catch(error =>
                 console.error(
@@ -52,9 +53,20 @@ class Profile extends Component {
         axios
             .get("/profile")
             .then(results => {
-                console.log("Results value:", results.data);
+                console.log("cookies:", results.data);
                 if (this._isMounted) {
                     this.setState({ loggedIn: results.data });
+
+                    axios
+                        .get("/points")
+                        .then(totalPoints => {
+                            console.log(totalPoints);
+                            this.setState({
+                                pointsCount: totalPoints.data.points
+                            })
+                        })
+                        .catch(error => console.error(`Something went wrong when getting points from server: ${error.stack}`))
+
                 }
             })
             .catch(error =>
@@ -66,6 +78,18 @@ class Profile extends Component {
         this._isMounted = false;
     }
 
+    handleLogout = e => {
+        e.preventDefault();
+
+        axios
+            .get("/logout")
+            .then(results => {
+                console.log("cookies", results)
+            })
+            .catch(error =>
+                console.error("Something went wrong when getting data from /profile", error.stack));
+    }
+
     render() {
         if (this.state.loggedIn === false) return <Redirect to="/login" />;
         else
@@ -73,6 +97,11 @@ class Profile extends Component {
                 <div>
                     <Menu />
                     <h1>PROFILE</h1>
+
+                    <form onSubmit={this.handleLogout} className="LogoutForm">
+                        <input type="submit" value="Logout" />
+                    </form>
+
                     <form onSubmit={this.handleSubmit}>
                         <select
                             value={this.state.name}
@@ -96,6 +125,11 @@ class Profile extends Component {
                         </select>
                         <input type="submit" value="Submit" />
                     </form>
+                    <div><h2>Points: {this.state.pointsCount}</h2></div>
+
+                    <div>
+                        <h2>What you are donating:</h2>
+                    </div>
                 </div>
             );
     }

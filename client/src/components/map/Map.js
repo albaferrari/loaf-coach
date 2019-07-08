@@ -3,6 +3,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import DeckGL, { GeoJsonLayer } from "deck.gl";
 import axios from "axios";
 import Geocoder from "react-map-gl-geocoder";
+import { Redirect } from "react-router-dom";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -23,7 +24,10 @@ class Map extends Component {
     searchResultLayer: null,
     lat: 0,
     lng: 0,
-    test:[]
+    markerState: [],
+    name:"",
+    email:"",
+    redirect: false
   };
 
   mapRef = React.createRef();
@@ -33,21 +37,22 @@ class Map extends Component {
     axios
       .get("/home")
       .then(dataFromServer => {
-        if(this._isMounted){
+        if (this._isMounted) {
           console.log("COMPONENT MOUNTED!!!!!!")
 
           let coordinates = dataFromServer.data
           let coordsContainer = []
-          for(const key in coordinates) {
+          for (const key in coordinates) {
             console.log("Longitude: ", JSON.parse(coordinates[key])[0], "Latitude: ", JSON.parse(coordinates[key])[1])
             let coords = {
-              lat:JSON.parse(coordinates[key])[1],
-              lng:JSON.parse(coordinates[key])[0]}
+              lat: JSON.parse(coordinates[key])[1],
+              lng: JSON.parse(coordinates[key])[0]
+            }
             coordsContainer.push(coords)
           }
           console.log("Container", coordsContainer[0])
           this.setState({
-            test:coordsContainer
+            markerState: coordsContainer
           })
         }
       })
@@ -56,7 +61,7 @@ class Map extends Component {
           `Something went wrong when getting ADDRESS data from server:${error.stack}`
         )
       );
-        
+
   }
 
 
@@ -80,7 +85,6 @@ class Map extends Component {
   };
 
   handleOnResult = event => {
-    /* console.log(event.result); */
     this.setState({
       searchResultLayer: new GeoJsonLayer({
         id: "search-result",
@@ -97,19 +101,44 @@ class Map extends Component {
   render() {
     const { viewport, searchResultLayer } = this.state;
 
-    let x = this.state.test.map((y, index) => {
+    let marker = this.state.markerState.map((coordinates, index) => {
       return <Marker
-      key={index}
-          latitude={y.lat}
-          longitude={y.lng}
-          offsetLeft={-20}
-          offsetTop={-10}>
-          <div className="marker-btn"></div>
-          <button></button>
+        key={index}
+        latitude={coordinates.lat}
+        longitude={coordinates.lng}
+        offsetLeft={-20}
+        offsetTop={-10}
+      >
+        <div className="marker-btn-container">
+          <button className="marker-btn"
+            onClick={e => {
+              e.preventDefault()
+
+              axios
+                .post("/userProfileData", coordinates)
+                .then(clickedMarkerInfo => {
+                  console.log("Clicked marker info:", clickedMarkerInfo.data);
+                  
+                  this.setState({name: clickedMarkerInfo.data.name, email: clickedMarkerInfo.data.email, redirect: true})
+                })
+                .catch(error => console.error(`Something went wrong when sending coordinates to backend: ${error.stack}`))
+            }}
+          ></button>
+        </div>
       </Marker>
+
     })
 
-    return (
+    if(this.state.redirect === true) return <Redirect to={{
+      pathname: '/user',
+      state: {
+        name: this.state.name,
+        email: this.state.email
+       }
+    }}
+    />
+
+    else return (
       <div className="Map">
         <ReactMapGL
           ref={this.mapRef}
@@ -128,15 +157,8 @@ class Map extends Component {
           />
           <DeckGL {...viewport} layers={[searchResultLayer]} />
 
-          {/* <Marker
-          latitude={this.state.lat}
-          longitude={this.state.lng}
-          offsetLeft={-20}
-          offsetTop={-10}>
-          <div className="marker-btn"></div>
-        </Marker> */}
-        {x}
-        
+          {marker}
+
         </ReactMapGL>
       </div>
     );

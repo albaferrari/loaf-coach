@@ -19,12 +19,22 @@
     background-color: transparent !important;
 }
 
+.marker-btn-container {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background-image: url("../../public/images/marker.png");
+    box-shadow: 3px 3px 5px 0px rgba(85, 85, 85, 0.5);
+    background-size: 30px;
+    background-repeat: no-repeat;
+}
+
 .marker-btn {
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    border: solid #a252cd;
-    background-color: #c28dde;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
 @media (min-width: 600px) {

@@ -25,8 +25,7 @@ const Menu = () => {
                 <div className="links-container">
                     <Link to="/" className="menu-link"><p>Home</p></Link>
                     <Link to="/about" className="menu-link"><p>About</p></Link>
-                    <Link to="/register" className="menu-link"><p>Register</p></Link>
-                    <Link to="/login" className="menu-link"><p>Login</p></Link>
+                    <Link to="/login" className="menu-link"><p>Login/SignIn</p></Link>
                     <Link to="/profile" className="menu-link"><p>Profile</p></Link>
                 </div>
             </div>

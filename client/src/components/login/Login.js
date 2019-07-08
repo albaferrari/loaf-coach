@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Menu from "../menu/Menu";
-/* import "../register/register.css"; */
+
+import "../login/login.css"
 
 class Login extends Component {
     constructor(props) {
@@ -11,8 +13,19 @@ class Login extends Component {
         this.state = {
             name: "",
             password: "",
-            redirect: false
+            redirect: false,
+            loggedIn: null
         }
+    }
+
+    componentDidMount(){
+        axios
+            .get("/login")
+            .then(results => {
+                console.log("cookies:", results.data);
+                    this.setState({ loggedIn: results.data });
+                })
+                .catch(error => console.error(`Something went wrong when checking for cookies: ${error.stack}`))
     }
 
     handleChange = e => {
@@ -46,13 +59,11 @@ class Login extends Component {
     }
 
     render() {
-        if (this.state.redirect) return <Redirect to="/profile" />
+        if (this.state.loggedIn === true) return <Redirect to="/profile" />
         else return (
             <div>
                 <Menu />
                 <div className="Register-main">
-                    <div>
-                    </div>
                     <form onSubmit={this.handleSubmit}>
                         <h1 className="register-title">Login</h1>
                         <div className="field">
@@ -76,7 +87,13 @@ class Login extends Component {
                             />
                         </div>
                         <br />
+                        <div className="buttons-container">
+
                         <input type="submit" value="Submit" className="submit-button" />
+                        <div className="not-user-container">
+                    <Link to="/register" className="not-user"><p>Sign in</p></Link>
+                        </div>
+                        </div>
                     </form>
                 </div>
             </div>

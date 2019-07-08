@@ -8,6 +8,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Profile from "./components/profile/Profile";
 import MapForMobile from "./components/MapForMobile/MapForMobile";
+import UserProfile from "./components/userProfile/UserProfile";
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/profile" component={Profile} />
+          <Route path="/user" component={UserProfile} />
         </Switch>
     </div>
     );

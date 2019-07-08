@@ -1,11 +1,21 @@
-body {
-    background-color: #5bae8b;
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
-.Login-main {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+.not-user-container {
+    width: 100px;
+    background-color:#b95e42;
+    padding: 5px 0 5px 0;
+    border-radius: 40px;
+    text-align: center;
+}
 
+.not-user{
+    text-decoration: none;
+    font-family: 'Sniglet', cursive;
+    font-size: 20px;
+    color: #fab700;
+    font-weight: bold;
 }

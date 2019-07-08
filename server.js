@@ -12,11 +12,11 @@ const port = process.env.PORT || 5000;
 const registerController = require("./controllers/registerController");
 const loginController = require("./controllers/loginController");
 const groceriesController = require("./controllers/groceriesController");
+const pointsController = require("./controllers/pointsController");
+const userProfileController = require("./controllers/userProfileController");
+const groceriesNamesControllers= require("./controllers/groceriesNamesController");
 
 const User = require("./database/models/User");
-
-/* const cors = require('cors') */
-
 
 
 app.use(express.json());
@@ -30,7 +30,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-/* app.use(cors()) */
 
 
 /* Custom Middleware */
@@ -39,6 +38,16 @@ function checkCookies(req, res) {
     res.send(false);
   } else {
     res.send(true);
+    console.log(req.session)
+  }
+}
+
+function logout(req, res) {
+  if (req.cookies.wowoCookie) {
+    res.clearCookie("wowoCookie");
+    res.send("cookies cleared");
+  } else {
+    res.send("there was no cookie");
   }
 }
 
@@ -47,14 +56,7 @@ app.get("/home", (req, res) => {
     .then(userArray => {
      let locationMap = userArray.map(user => {
          return user.dataValues.location
-/*          res.send(user.dataValues.location)
- */ /*        return {
-          latitude: JSON.parse(user.dataValues.location)[0],
-          longitude: JSON.parse(user.dataValues.location)[1]
-        } */
       })
-
-      /* console.log(Object.assign({},locationMap)) */
       res.send(Object.assign({},locationMap))
 
     }).catch(error => {
@@ -63,8 +65,6 @@ app.get("/home", (req, res) => {
 }
 )
 
-
-/* app.post("/", markersController.getMarker); */
 app.post("/register", registerController.postUserRegistration);
 app.get("/register", (req, res) => {
   checkCookies(req, res)
@@ -76,9 +76,23 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  checkCookies(req, res)
+  checkCookies(req, res);
 });
 app.post("/profile", groceriesController.groceries);
+app.get("/points", pointsController.pointsCounter);
+
+app.get("/logout", (req, res) => {
+   logout(req, res);
+})
+
+app.post("/userProfileData", userProfileController.getUserFromMarker);
+
+app.get("/user", (req, res) => {
+  checkCookies(req, res);
+})
+
+app.get("/groceriesName", groceriesNamesControllers.getGroceries)
+
 
 connector
   .sync()
