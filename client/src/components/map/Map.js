@@ -25,8 +25,7 @@ class Map extends Component {
     lat: 0,
     lng: 0,
     markerState: [],
-    name:"",
-    email:"",
+    userProfile: {},
     redirect: false
   };
 
@@ -119,7 +118,7 @@ class Map extends Component {
                 .then(clickedMarkerInfo => {
                   console.log("Clicked marker info:", clickedMarkerInfo.data);
                   
-                  this.setState({name: clickedMarkerInfo.data.name, email: clickedMarkerInfo.data.email, redirect: true})
+                   this.setState({userProfile: {name: clickedMarkerInfo.data.foundUser.name, email: clickedMarkerInfo.data.foundUser.email, food: clickedMarkerInfo.data.food},  redirect: true})
                 })
                 .catch(error => console.error(`Something went wrong when sending coordinates to backend: ${error.stack}`))
             }}
@@ -132,8 +131,7 @@ class Map extends Component {
     if(this.state.redirect === true) return <Redirect to={{
       pathname: '/user',
       state: {
-        name: this.state.name,
-        email: this.state.email
+        userProfile: this.state.userProfile
        }
     }}
     />

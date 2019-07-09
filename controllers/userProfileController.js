@@ -1,5 +1,5 @@
 const User = require("../database/models/User");
-const axios = require("axios");
+const Groceries = require("../database/models/Groceries");
 
 module.exports = {
     getUserFromMarker: (req, res) => {
@@ -7,7 +7,19 @@ module.exports = {
 
         User.findOne({ where: { location: stringifiedCoords } })
             .then(foundUser =>
-                res.send(foundUser.dataValues)
+                {
+                    Groceries.findAll({where: {userId: foundUser.dataValues.id}})
+                    .then(results => {
+                        console.log(results);
+                        let food = results.map(element => {
+                            return {
+                                name: element.name
+                            }
+                        })
+                         res.send({foundUser: foundUser.dataValues, food: food})
+                    })
+                    .catch()
+                }
              )
             .catch(error => console.error(`Couldn't find user from location: ${error.stack}`))
     }

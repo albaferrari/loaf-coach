@@ -45,7 +45,7 @@ function checkCookies(req, res) {
 function logout(req, res) {
   if (req.cookies.wowoCookie) {
     res.clearCookie("wowoCookie");
-    res.send("cookies cleared");
+    res.send(false);
   } else {
     res.send("there was no cookie");
   }

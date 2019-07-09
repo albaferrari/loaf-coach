@@ -59,7 +59,7 @@ class Login extends Component {
     }
 
     render() {
-        if (this.state.loggedIn === true) return <Redirect to="/profile" />
+        if (this.state.redirect === true) return <Redirect to="/profile" />
         else return (
             <div>
                 <Menu />
@@ -91,7 +91,7 @@ class Login extends Component {
 
                         <input type="submit" value="Submit" className="submit-button" />
                         <div className="not-user-container">
-                    <Link to="/register" className="not-user"><p>Sign in</p></Link>
+                    <Link to="/register" className="not-user"><p>Register</p></Link>
                         </div>
                         </div>
                     </form>
