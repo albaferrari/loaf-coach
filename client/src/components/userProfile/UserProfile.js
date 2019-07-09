@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "../menu/Menu";
 import { Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class UserProfile extends Component {
     _isMounted = false;
@@ -44,6 +45,9 @@ class UserProfile extends Component {
                     <h2>{this.props.location.state.userProfile.name}</h2>
                     <h2>{this.props.location.state.userProfile.email}</h2>
                     {availableFood}
+                    <div>
+                        <Link to="/order" className="not-user"><p>Order {this.props.location.state.userProfile.name}'s food</p></Link>
+                    </div>
                 </div>
             );
     }
