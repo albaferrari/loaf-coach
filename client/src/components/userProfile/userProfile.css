@@ -1,0 +1,26 @@
+.user-main {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.user-main h1{
+    color: #fab700;
+    margin-bottom: 40px;
+}
+.user-main p {
+     color:#2e5742;
+}
+
+.order-button{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #b95e42;
+    background-color: #fab700;
+    padding: 10px 20px 10px 20px;
+    margin-top: 20px;
+    border-radius: 40px;
+}

@@ -17,9 +17,9 @@ module.exports = {
                             console.log("Cookies after login", req.cookies)
                             res.send(req.session.user)
                         } else {
-                            console.log("Something went wrong when logging in");
-                            console.log(results);
-                            console.log(req.session);
+                            ("Something went wrong when logging in");
+                            (results);
+                            (req.session);
                         }
                     })
                     .catch(error => console.error(`Couldn't login: ${error.stack}`));

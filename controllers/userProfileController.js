@@ -10,7 +10,6 @@ module.exports = {
                 {
                     Groceries.findAll({where: {userId: foundUser.dataValues.id}})
                     .then(results => {
-                        console.log(results);
                         let food = results.map(element => {
                             return {
                                 name: element.name

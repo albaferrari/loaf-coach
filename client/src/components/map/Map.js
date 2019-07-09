@@ -37,19 +37,15 @@ class Map extends Component {
       .get("/home")
       .then(dataFromServer => {
         if (this._isMounted) {
-          console.log("COMPONENT MOUNTED!!!!!!")
-
           let coordinates = dataFromServer.data
           let coordsContainer = []
           for (const key in coordinates) {
-            console.log("Longitude: ", JSON.parse(coordinates[key])[0], "Latitude: ", JSON.parse(coordinates[key])[1])
             let coords = {
               lat: JSON.parse(coordinates[key])[1],
               lng: JSON.parse(coordinates[key])[0]
             }
             coordsContainer.push(coords)
           }
-          console.log("Container", coordsContainer[0])
           this.setState({
             markerState: coordsContainer
           })
@@ -116,8 +112,6 @@ class Map extends Component {
               axios
                 .post("/userProfileData", coordinates)
                 .then(clickedMarkerInfo => {
-                  console.log("Clicked marker info:", clickedMarkerInfo.data);
-                  
                    this.setState({userProfile: {name: clickedMarkerInfo.data.foundUser.name, email: clickedMarkerInfo.data.foundUser.email, food: clickedMarkerInfo.data.food},  redirect: true})
                 })
                 .catch(error => console.error(`Something went wrong when sending coordinates to backend: ${error.stack}`))

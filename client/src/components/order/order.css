@@ -1,0 +1,18 @@
+.order-main{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30vh;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+}
+
+.order-title{
+    color: #fab700;
+    margin-bottom: 30px;
+}
+
+.order-info{
+    width: 80%;
+    color: #2e5742;
+}

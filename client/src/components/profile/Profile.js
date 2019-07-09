@@ -50,8 +50,6 @@ class Profile extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        console.log("Mount value:", this._isMounted);
-
         axios
             .get("/profile")
             .then(results => {
@@ -71,10 +69,9 @@ class Profile extends Component {
                         .get("/groceriesName")
                         .then(groceriesFromServer => {
                             let groceriesArray = groceriesFromServer.data
-                            console.log(groceriesFromServer.data)
                             let newGroceriesArray = [];
                             groceriesArray.forEach((element) => {
-                                newGroceriesArray.push({id: element.id, groceries:element.name})
+                                newGroceriesArray.push({ id: element.id, groceries: element.name })
                             })
                             this.setState({ groceriesList: newGroceriesArray })
                         })
@@ -86,7 +83,6 @@ class Profile extends Component {
     }
 
     componentWillUnmount() {
-        console.log("UNMOUNTED");
         this._isMounted = false;
     }
 
@@ -97,17 +93,16 @@ class Profile extends Component {
             .get("/logout")
             .then(results => {
                 console.log("cookies", results.data)
-                    this.setState({loggedOut: true})
-                    console.log("LogOut:", this.state.loggedOut);
+                this.setState({ loggedOut: true })
             })
             .catch(error =>
                 console.error("Something went wrong when getting cookies data from /profile", error.stack));
     }
 
     render() {
-        let list = this.state.groceriesList.map((element, index) => { 
+        let list = this.state.groceriesList.map((element, index) => {
             return <div key={index}>
-                <h1 className="list-item">{element.groceries}</h1>
+                <p className="list-item">{element.groceries}</p>
             </div>
         })
 
@@ -116,43 +111,49 @@ class Profile extends Component {
         else return (
             <div>
                 <Menu />
-                <h1>PROFILE</h1>
+                <h1 className="profile-title">YOUR PROFILE</h1>
 
                 <form onSubmit={this.handleLogout} className="LogoutForm">
-                    <input type="submit" value="Logout" />
+                    <input type="submit" value="Logout" className="logout-button" />
                 </form>
+                <div className="profile-main">
+                        <form onSubmit={this.handleSubmit} className="groceries-form">
+                            <select
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                className="groceries-select"
+                            >
+                                <option>Select</option>
+                                <option value="Milk">Milk</option>
+                                <option value="Bread">Bread</option>
+                                <option value="Fruit">Fruit</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Pork">Pork</option>
+                                <option value="Beef">Beef</option>
+                                <option value="Other meat">Other meat</option>
+                                <option value="Seafood">Seafood</option>
+                                <option value="Soups and canned goods">Soups and canned goods</option>
+                                <option value="Frozen food">Frozen food</option>
+                                <option value="Pasta and rice">Pasta and rice</option>
+                                <option value="Dairy and Cheese">Dairy and Cheese</option>
+                                <option value="Eggs">Eggs</option>
+                                <option value="Cereals and Breakfast Foods">Cereals and Breakfast Foods</option>
+                                <option value="Drinks">Drinks</option>
+                            </select>
+                            <input type="submit" value="Submit" className="groceries-submit" />
+                        </form>
 
-                <form onSubmit={this.handleSubmit}>
-                    <select
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                    >
-                        <option>Select</option>
-                        <option value="Milk">Milk</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Fruit">Fruit</option>
-                        <option value="Chicken">Chicken</option>
-                        <option value="Pork">Pork</option>
-                        <option value="Beef">Beef</option>
-                        <option value="Other meat">Other meat</option>
-                        <option value="Seafood">Seafood</option>
-                        <option value="Soups and canned goods">Soups and canned goods</option>
-                        <option value="Frozen food">Frozen food</option>
-                        <option value="Pasta and rice">Pasta and rice</option>
-                        <option value="Dairy and Cheese">Dairy and Cheese</option>
-                        <option value="Eggs">Eggs</option>
-                        <option value="Cereals and Breakfast Foods">Cereals and Breakfast Foods</option>
-                        <option value="Drinks">Drinks</option>
-                    </select>
-                    <input type="submit" value="Submit" />
-                </form>
-                <div><h2>Points: {this.state.pointsCount}</h2></div>
 
-                <div>
-                    <h2>What you are donating:</h2>
-                </div> 
-                {list}
-            </div>
+                        <div className="point-list-container">
+                            <h2>Points: {this.state.pointsCount}</h2>
+                            <p className="your-food">Your food:</p>
+                            <div className="list-container">
+                                {list}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
         );
     }
 }

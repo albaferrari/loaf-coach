@@ -38,7 +38,6 @@ function checkCookies(req, res) {
     res.send(false);
   } else {
     res.send(true);
-    console.log(req.session)
   }
 }
 

@@ -11,8 +11,8 @@ const Sidebar = () => {
                 
                 <h1 className="saveTheFood">Save the food!</h1>
 
-                <p className="infoText">lorem ipsum dolor sit amet bla bla bla. Info text info text this is info text.
-                    Info text la la la.</p>
+                <p className="infoText1">Don't waste food, donate it!</p>
+                <p className="infoText">Click the icons on the map to see what people have to donate.</p>
 
                     <Link to="/map" className="goToMenuLink"><p>Go to map</p></Link>
             </div>

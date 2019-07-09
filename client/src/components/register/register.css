@@ -10,9 +10,8 @@ body {
     width: 100vw;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-image: url("../../public/images/logo-right-bottom.png");
-    background-size: 50vw;
+    background-size: 70vw;
     background-repeat: no-repeat;
     background-position: right bottom;
 }
@@ -25,12 +24,12 @@ body {
 }
 
 form {
-    align-self: flex-start;
-    margin-left: 10vw;
-    padding: 40px;
+    margin-top: 100px;
+    align-self: center;
+    padding: 30px;
     border-radius: 30px;
     box-shadow: 0px 0px 30px 0px rgba(46,87,66,0.3);
-    background-color: #5bae8b;
+    background-color: rgb(91, 174, 139, 0.8);
 }
 
 .field {
@@ -38,7 +37,7 @@ form {
 }
 
 .field input {
-    width: 300px;
+    width: 250px;
     height: 30px;
     border-radius: 30px;
     background-color: #f6dfaf;
@@ -65,4 +64,16 @@ form {
     color: #b95e42;
     border: none;
     font-weight: bold;
+}
+
+@media (min-width: 1150px) {
+    .Register-main {
+        flex-direction: row;
+        background-size: 50vw;
+    }
+
+    form {
+        margin-top: 0px;
+        margin-left: 150px;
+    }
 }

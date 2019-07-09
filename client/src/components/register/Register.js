@@ -43,7 +43,6 @@ class Register extends Component {
                     location: resultsFromServer.data.location,
                     phone: resultsFromServer.data.phone
                 });
-                /* console.log(resultsFromServer); */
             })
             .catch(error =>
                 console.error(

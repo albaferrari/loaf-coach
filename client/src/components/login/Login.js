@@ -22,7 +22,6 @@ class Login extends Component {
         axios
             .get("/login")
             .then(results => {
-                console.log("cookies:", results.data);
                     this.setState({ loggedIn: results.data });
                 })
                 .catch(error => console.error(`Something went wrong when checking for cookies: ${error.stack}`))
@@ -43,7 +42,6 @@ class Login extends Component {
         axios
             .post("/login", user)
             .then(resultsFromServer => {
-                console.log(resultsFromServer.data)
                 this.setState({
                     id: resultsFromServer.data.id,
                     name: resultsFromServer.data.name,

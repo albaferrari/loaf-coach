@@ -9,6 +9,7 @@ import Profile from "./components/profile/Profile";
 import MapForMobile from "./components/MapForMobile/MapForMobile";
 import UserProfile from "./components/userProfile/UserProfile";
 import Order from "./components/order/Order";
+import Confirm from "./components/confirm/Confirm";
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path="/profile" component={Profile} />
           <Route path="/user" component={UserProfile} />
           <Route path="/order" component={Order} />
+          <Route path="/confirm" component={Confirm} />
         </Switch>
     </div>
     );

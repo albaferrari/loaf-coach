@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import Menu from "../menu/Menu";
 import { Redirect } from "react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import "../userProfile/userProfile.css";
 
 class UserProfile extends Component {
     _isMounted = false;
@@ -15,7 +17,6 @@ class UserProfile extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        console.log("UserProfile component MOUNTED");
 
         axios
             .get("/user")
@@ -32,7 +33,7 @@ class UserProfile extends Component {
     render() {
         let availableFood = this.props.location.state.userProfile.food.map((element, index) => {
             return <div key={index}>
-                <h2>{element.name}</h2>
+                <h2 className="list-item">{element.name}</h2>
             </div>
         })
 
@@ -41,12 +42,13 @@ class UserProfile extends Component {
             return (
                 <div>
                     <Menu />
-                    <h1>USER PROFILE FROM CLICKED MARKER</h1>
-                    <h2>{this.props.location.state.userProfile.name}</h2>
-                    <h2>{this.props.location.state.userProfile.email}</h2>
-                    {availableFood}
-                    <div>
-                        <Link to="/order" className="not-user"><p>Order {this.props.location.state.userProfile.name}'s food</p></Link>
+                    <div className="user-main">
+                        <h1>{this.props.location.state.userProfile.name}</h1>
+                        {/* <p>{this.props.location.state.userProfile.email}</p> */}
+                        <div className="list-container">
+                            {availableFood}
+                        </div>
+                            <Link to="/order" className="order-button"><p>Order {this.props.location.state.userProfile.name}'s food</p></Link>
                     </div>
                 </div>
             );

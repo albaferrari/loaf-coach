@@ -11,7 +11,5 @@ module.exports = {
               points: 2,
             }
         })
-        console.log(req.body);
-        console.log(req.session.user.id);
     }
 }
