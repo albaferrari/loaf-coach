@@ -12,10 +12,18 @@
     text-align: center;
 }
 
+.not-user-container:hover {
+    background-color:#fab700;
+}
+
 .not-user{
     text-decoration: none;
     font-family: 'Sniglet', cursive;
     font-size: 20px;
     color: #fab700;
     font-weight: bold;
+}
+
+.not-user:hover{
+    color: #b95e42;
 }

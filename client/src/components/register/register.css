@@ -66,6 +66,11 @@ form {
     font-weight: bold;
 }
 
+.submit-button:hover {
+    background-color: #b95e42;
+    color: #fab700;
+}
+
 @media (min-width: 1150px) {
     .Register-main {
         flex-direction: row;

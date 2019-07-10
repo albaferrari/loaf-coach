@@ -9,9 +9,11 @@ class Confirm extends Component {
             <div>
                 <Menu />
                 <div className="order-main">
-                    <h1 className="order-title">Thank you for your order!</h1>
-                    <p className="order-info">You will be contacted as soon as possible</p>
-                    <Link to="/" className="order-button"><p>Back to the map</p></Link>
+                    <div className="info-container">
+                        <h1 className="order-title">Thank you for your order!</h1>
+                        <p className="order-info">You will be contacted as soon as possible</p>
+                        <Link to="/" className="order-button"><p>Back to the map</p></Link>
+                    </div>
                 </div>
             </div>
         );

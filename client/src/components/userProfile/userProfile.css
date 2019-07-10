@@ -18,9 +18,20 @@
     text-decoration: none;
     font-size: 20px;
     font-weight: bolder;
-    color: #b95e42;
     background-color: #fab700;
     padding: 10px 20px 10px 20px;
     margin-top: 20px;
     border-radius: 40px;
+}
+
+.order-button p {
+    color: #b95e42;
+}
+
+.order-button:hover {
+    background-color: #b95e42;
+}
+
+.order-button p:hover {
+    color: #fab700;
 }
