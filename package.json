@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/albaferrari/loaf-coach#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",
